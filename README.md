@@ -9,7 +9,7 @@
 - The configuration file's JSON schema is no longer supported since the configuration can no longer be provided via a JSON format.
 - The baseUrl and experimentalSessionAndOrigin configuration options are no longer valid as top-level configuration options and can only be defined within the e2e configuration.
 - The supportFile and slowTestThreshold options are no longer valid as top-level configuration options and must now be defined within the e2e and/or component configurations.
--Previously the supportFile option defaulted to cypress/support/index.js. Now the e2e.supportFile option defaults to cypress/support/e2e.{js,jsx,ts,tsx} and the component.supportFile option defaults to cypress/support/component.{js,jsx,ts,tsx}.
+- Previously the supportFile option defaulted to cypress/support/index.js. Now the e2e.supportFile option defaults to cypress/support/e2e.{js,jsx,ts,tsx} and the component.supportFile option defaults to cypress/support/component.{js,jsx,ts,tsx}.
 - The pluginsFile option was removed. This option should be replaced with the new setupNodeEvents() and devServer() configuration options.
 - The testFiles option was removed. This option was replaced with the new specPattern option.
 - The integrationFolder and componentFolder options were removed. These options were made obsolete by the new specPattern option.
@@ -47,3 +47,39 @@
     - cy.server() and cy.route() have been deprecated. In a future release, support for cy.server() and cy.route() will be removed. Using cy.intercept() instead is encouraged.
     - experimentalFetchPolyfill has been deprecated. Use cy.intercept() to intercept requests using the Fetch API instead.
     - cy.route2() was renamed to cy.intercept().
+
+
+### Disable outputting XHR messages in test runner log:
+- for Cypress v10.0 and above:
+
+Add the following to cypress/support/e2e.ts or cypress/support/e2e.js:
+```javascript
+// Hide fetch/XHR requests from command log
+if (Cypress.config('hideXHRInCommandLog')) {
+  const app = window.top;
+
+  if (
+    app &&
+    !app.document.head.querySelector('[data-hide-command-log-request]')
+  ) {
+    const style = app.document.createElement('style');
+    style.innerHTML =
+      '.command-name-request, .command-name-xhr { display: none }';
+    style.setAttribute('data-hide-command-log-request', '');
+
+    app.document.head.appendChild(style);
+  }
+}
+```
+- for Cypress less v10.0:
+
+In cypress/support/index.js file paste:
+```javascript
+// Disable outputting XHR messages in test runner log
+Cypress.Server.defaults({
+    ignore: (xhr) => {
+        // handle custom logic for whitelisting
+        return true;
+      }
+})
+```
