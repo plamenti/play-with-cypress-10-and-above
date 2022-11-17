@@ -1,0 +1,22 @@
+{
+  "name": "play-with-cypress-10-and-above",
+  "version": "1.0.0",
+  "description": "Explore the breaking changes that are introduced with Cypress v10.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/plamenti/play-with-cypress-10-and-above.git"
+  },
+  "author": "plamenti",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/plamenti/play-with-cypress-10-and-above/issues"
+  },
+  "homepage": "https://github.com/plamenti/play-with-cypress-10-and-above#readme",
+  "devDependencies": {
+    "cypress": "^11.1.0"
+  }
+}
