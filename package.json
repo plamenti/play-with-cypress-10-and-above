@@ -4,7 +4,12 @@
   "description": "Explore the breaking changes that are introduced with Cypress v10.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "cy:run": "./node_modules/.bin/cypress run",
+    "run_all_firefox": "npm run cy:run -- --headed --browser firefox",
+    "run_all_chrome": "npm run cy:run -- --headed --browser chrome",
+    "run_play_area_firefox": "npm run run_all_firefox -- --spec cypress/e2e/play_area.js",
+    "run_play_area_chrome": "npm run run_all_chrome -- --spec cypress/e2e/play_area.js"
   },
   "repository": {
     "type": "git",
